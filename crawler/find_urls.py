@@ -2,18 +2,24 @@ import urllib.request
 import html.parser
 import urllib.parse
 import html.parser
-import crawler.links
+try:
+    import crawler.links
+except:
+    import links
+
 
 
 
 
 class FindUrls:
     def __call__(self, url):
-        print("xxxx", url)
         response = urllib.request.urlopen(url)
         html = response.read().decode('utf-8')
 
-        a = crawler.links.Links(html)
+        try:
+            a = crawler.links.Links(html)
+        except:
+            a = links.Links(html)
         html_links = a._links
         html_links_list = list(html_links)
         for i in range(len(html_links_list)):
